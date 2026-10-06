@@ -19,6 +19,8 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile --ignore-scripts
       - run: pnpm run build
+      - name: Rebuild before publication
+        run: pnpm run build
       - run: pnpm run lint
       - run: pnpm test
       - run: npm pack --dry-run
