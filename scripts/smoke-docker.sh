@@ -16,7 +16,8 @@ docker run --rm --user root \
     printf "{\"dependencies\":{\"%s\":\"0.1.0\"}}" "$PACKAGE_NAME" > /home/node/.n8n/nodes/package.json
     export NODE_PATH=/usr/local/lib/node_modules/n8n/node_modules
     export N8N_USER_FOLDER=/home/node
-    n8n execute --file=/package/tests/load-workflow.json
+    n8n import:workflow --input=/package/tests/load-workflow.json
+    n8n execute --id=aceSunoSmokeTest
   ' > artifacts/n8n-load.log 2>&1 && status=0 || status=$?
 cat artifacts/n8n-load.log
 test "$status" -ne 0
@@ -24,5 +25,5 @@ if grep -Eiq 'unrecognized node|unknown node|cannot find module|error loading|fa
   echo 'The package could not load in n8n' >&2
   exit 1
 fi
-grep -Eiq 'credential.*(not set|not found|missing|not configured|not available|required)|no credential' artifacts/n8n-load.log
+grep -Eiq 'credential.*(not set|not found|missing|not configured|not available|required)|no credential|does not have any credentials' artifacts/n8n-load.log
 echo 'PASS: n8n loaded the package and reached credential validation without calling the API'
