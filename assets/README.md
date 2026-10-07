@@ -8,3 +8,5 @@ Node and credential icons come from the existing AceDataCloud Studio service cat
 - Preparation: aspect-preserving resize on a white 256×256 PNG tile, readable in light and dark themes.
 
 The mark identifies the service integration. This package is maintained by AceDataCloud and does not claim to be an official package from the model developer.
+
+The legacy `acedatacloud.svg` and `acedatacloud.dark.svg` paths embed the same service PNG. They remain available for cached documentation and in-review listing icon URLs. Current npm node metadata uses the PNG files.
