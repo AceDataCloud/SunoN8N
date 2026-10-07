@@ -21,7 +21,7 @@ export class Suno implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'Suno by AceDataCloud',
 		name: 'suno',
-		icon: { light: 'file:acedatacloud.svg', dark: 'file:acedatacloud.dark.svg' },
+		icon: { light: 'file:icon.png', dark: 'file:icon.dark.png' },
 		group: ['transform'],
 		version: 1,
 		subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
