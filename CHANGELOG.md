@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.2
+
+- Publish the illustrated API key onboarding and tagged setup/documentation links.
+- Keep API operations and request behavior unchanged.
+
 ## 0.1.1
 
 Replace the generic AceDataCloud icon with the Suno service mark in nodes and credentials. Generation, authentication and task behavior are unchanged.
