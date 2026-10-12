@@ -1,6 +1,6 @@
 {
   "name": "@acedatacloud/n8n-nodes-suno",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "n8n community node for Suno music generation through AceDataCloud.",
   "license": "MIT",
   "homepage": "https://github.com/AceDataCloud/SunoN8N",
