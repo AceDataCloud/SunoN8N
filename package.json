@@ -1,13 +1,17 @@
 {
   "name": "@acedatacloud/n8n-nodes-suno",
   "version": "0.1.2",
-  "description": "n8n community node for Suno music generation through AceDataCloud.",
+  "description": "Create Suno music and lyrics, then retrieve the same task through Ace Data Cloud.",
   "license": "MIT",
   "homepage": "https://github.com/AceDataCloud/SunoN8N",
   "keywords": [
     "n8n-community-node-package",
     "acedatacloud",
-    "suno"
+    "suno",
+    "music",
+    "music-generation",
+    "acedata",
+    "ace-data-cloud"
   ],
   "author": {
     "name": "Ace Data Cloud",

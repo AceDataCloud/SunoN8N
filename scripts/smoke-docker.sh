@@ -9,7 +9,7 @@ docker run --rm --user root \
   -e N8N_VERSION_NOTIFICATIONS_ENABLED=false \
   -e N8N_TEMPLATES_ENABLED=false \
   -e PACKAGE_NAME="$package_name" \
-  --entrypoint /bin/sh n8nio/n8n:2.42.3 -ec '
+  --entrypoint /bin/sh "${N8N_IMAGE:-n8nio/n8n:2.43.7}" -ec '
     mkdir -p "/home/node/.n8n/nodes/node_modules/$PACKAGE_NAME"
     cp -R /package/dist "/home/node/.n8n/nodes/node_modules/$PACKAGE_NAME/"
     cp /package/package.json "/home/node/.n8n/nodes/node_modules/$PACKAGE_NAME/"

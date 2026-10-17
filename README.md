@@ -1,4 +1,4 @@
-# Suno by AceDataCloud — n8n community node
+# Suno by Ace Data Cloud — n8n community node
 
 Use [Suno through AceDataCloud](https://platform.acedata.cloud/documents/suno-audios?utm_source=opensource&utm_medium=referral&utm_campaign=evergreen&utm_content=sunon8n_readme_documents_suno_audios) in your n8n workflows.
 
@@ -11,6 +11,24 @@ Package: `@acedatacloud/n8n-nodes-suno` · License: MIT.
 On self-hosted n8n, open **Settings → Community Nodes → Install**, enter `@acedatacloud/n8n-nodes-suno`, and install. See [n8n's installation guide](https://docs.n8n.io/integrations/community-nodes/installation-and-management/).
 
 n8n Cloud requires verified community nodes. Publishing this package to npm does not grant verification. Check the n8n node panel for current availability; this repository does not claim verified status.
+
+## Use the node
+
+Search for **Suno** after installation. Choose **Suno by Ace Data Cloud**; the integration is maintained by Ace Data Cloud, not the model developer. Related search phrases are `suno`, `suno music`, `music generation`. These are discovery hints, not a claim about search rank or official approval.
+
+- **Self-hosted n8n:** follow [the official community-node installation instructions](https://docs.n8n.io/integrations/community-nodes/installation-and-management/gui-installation/) and install `@acedatacloud/n8n-nodes-suno`. After installation, add a Manual Trigger (or use your existing trigger), then use its next **+** to find the node. This is a processing/query node, not a trigger.
+- **n8n Cloud:** use [the verified-node picker](https://docs.n8n.io/integrations/community-nodes/installation-and-management/install-verified-community-nodes/) only when this package is officially available there. Do not paste an unverified package name into Cloud or treat npm publication as verification.
+- Create **Suno by Ace Data Cloud API** in n8n credentials, then paste your raw application API token into **API Token**. See [Credentials](#credentials) for account registration, General application initialization and optional expiry/access/usage limits.
+
+### Read an existing task first
+
+1. Add this node after a trigger and choose **Resource → Task**, **Operation → Get**. Select the credential for this service.
+2. Paste an existing task ID returned by this same service. The **Task ID** field is not a prompt or a video/image URL. Leave creation and n8n retry-on-fail off.
+3. Execute that query node once. Continue only when `finished` and `successful` are true; inspect `data` for the final media URL. A pending response or task ID is not the final output. Record 401/403 and check access rather than creating a replacement task.
+
+For new creation, choose **Resource → Audio**, **Operation → Create**, then explicitly select the model and inputs. Check [current pricing](https://platform.acedata.cloud/models?utm_source=opensource&utm_medium=referral&utm_campaign=evergreen&utm_content=sunon8n_readme_pricing) and balance before executing once. Keep the returned ID and query it after a timeout; restarting creation can incur another charge. Each incoming item can create a separate task. No model fallback is added by this integration.
+
+The API-key screenshots below are real platform references; this README does not claim that they show an n8n installation or output. Native n8n installation/configuration screenshots must identify the actual package/version and contain no secret. All customer-facing node text and documentation remain English to match [n8n verification requirements](https://docs.n8n.io/connect/create-nodes/build-your-node/reference/verification-guidelines/).
 
 ## Credentials
 
@@ -26,7 +44,7 @@ n8n Cloud requires verified community nodes. Publishing this package to npm does
 
 Save the key in the client's credential store or the environment variable shown below. Never put it in a prompt, shared workflow, screenshot, or Git commit. If authentication fails, check the full copied value, application/service access, expiration, usage limit, and balance before creating another key.
 
-In n8n, open a node and create a **Suno by AceDataCloud API** credential. Paste the raw value into **API Token**, save, and select this credential on every node that needs it, including task readers.
+In n8n, open a node and create a **Suno by Ace Data Cloud API** credential. Paste the raw value into **API Token**, save, and select this credential on every node that needs it, including task readers.
 
 The token is stored in n8n's credential store and sent as a Bearer token only to `https://api.acedata.cloud`. The credential test queries an empty batch of tasks; it does not create media. Use a service API token, not a platform management token. Different services may require different credentials.
 
@@ -80,7 +98,7 @@ pnpm test
 pnpm run dev
 ```
 
-Node.js 24 is used in CI. Tests exercise request payloads, task state handling, result mapping, credential configuration, item linking, and failures with a mocked HTTP boundary; they do not incur generation charges. CI also loads the compiled package in the official n8n 2.42.3 image and verifies that workflow execution reaches credential validation without sending a generation request.
+Node.js 24 is used in CI. Tests exercise request payloads, task state handling, result mapping, credential configuration, item linking, and failures with a mocked HTTP boundary; they do not incur generation charges. CI also loads the compiled package in the official n8n 2.43.7 image and verifies that workflow execution reaches credential validation without sending a generation request.
 
 Releases run from merged code through [GitHub Actions](.github/workflows/publish.yml) using `npm publish --provenance`. Open a pull request, pass CI, merge, and push a matching version tag, or run the Publish workflow on `main`. Keep the npm version immutable after publication.
 

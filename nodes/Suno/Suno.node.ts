@@ -19,18 +19,34 @@ import { properties } from './properties';
 
 export class Suno implements INodeType {
 	description: INodeTypeDescription = {
-		displayName: 'Suno by AceDataCloud',
+		displayName: 'Suno by Ace Data Cloud',
 		name: 'suno',
 		icon: { light: 'file:icon.png', dark: 'file:icon.dark.png' },
 		group: ['transform'],
 		version: 1,
 		subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
-		description: 'Create music and retrieve generation tasks through AceDataCloud',
-		defaults: { name: 'Suno by AceDataCloud' },
+		description: 'Create Suno music and lyrics, then retrieve the same task through Ace Data Cloud',
+		defaults: { name: 'Suno by Ace Data Cloud' },
 		inputs: [NodeConnectionTypes.Main],
 		outputs: [NodeConnectionTypes.Main],
 		usableAsTool: true,
 		credentials: [{ name: 'aceDataSunoApi', required: true }],
+		codex: {
+			alias: ['suno', 'suno music', 'music generation'],
+			categories: ['Marketing & Content'],
+			resources: {
+				primaryDocumentation: [
+					{
+						url: 'https://github.com/AceDataCloud/SunoN8N#use-the-node',
+					},
+				],
+				credentialDocumentation: [
+					{
+						url: 'https://github.com/AceDataCloud/SunoN8N#credentials',
+					},
+				],
+			},
+		},
 		properties,
 	};
 
