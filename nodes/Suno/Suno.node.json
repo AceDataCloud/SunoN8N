@@ -6,8 +6,14 @@
 	"resources": {
 		"primaryDocumentation": [
 			{
-				"url": "https://github.com/AceDataCloud/SunoN8N#readme"
+				"url": "https://github.com/AceDataCloud/SunoN8N#use-the-node"
+			}
+		],
+		"credentialDocumentation": [
+			{
+				"url": "https://github.com/AceDataCloud/SunoN8N#credentials"
 			}
 		]
-	}
+	},
+	"alias": ["suno", "suno music", "music generation"]
 }
