@@ -20,6 +20,10 @@ Search for **Suno** after installation. Choose **Suno by Ace Data Cloud**; the i
 - **n8n Cloud:** use [the verified-node picker](https://docs.n8n.io/integrations/community-nodes/installation-and-management/install-verified-community-nodes/) only when this package is officially available there. Do not paste an unverified package name into Cloud or treat npm publication as verification.
 - Create **Suno by Ace Data Cloud API** in n8n credentials, then paste your raw application API token into **API Token**. See [Credentials](#credentials) for account registration, General application initialization and optional expiry/access/usage limits.
 
+![Official n8n reference: add an action after a trigger](https://raw.githubusercontent.com/n8n-io/n8n-docs/4a84a4229f694c8565dcd0a9cd0af37623fa2cbc/docs/get-started/.gitbook/assets/build-your-first-workflow-get-weather-01.png)
+
+Official n8n tutorial image, referenced on 2026-10-18; its original capture date and exact version are not declared. The pictured HTTP Request node illustrates the native action-picker layout, not this service's installation or output. Use this package's service name in your own picker. [Official source](https://docs.n8n.io/get-started/build-your-first-workflow).
+
 ### Read an existing task first
 
 1. Add this node after a trigger and choose **Resource → Task**, **Operation → Get**. Select the credential for this service.
@@ -38,9 +42,9 @@ The API-key screenshots below are real platform references; this README does not
 4. When creating a key, review **Expiration Time**, **Set Usage Limitation**, and **Allowed APIs**. Enable only the restrictions you need, allow the operations you will call, then click **Create** and copy the token from the key list. Task lookup does not grant permission to submit a generation. Confirm the application's balance can cover your first request; any trial allowance is whatever your account currently displays.
 5. Copy only the token value, without quotation marks, spaces, or `Bearer `. An API Key / API Token field expects this raw value; only a manually configured HTTP `Authorization` header needs the `Bearer ` prefix. A `platform-...` account-management token cannot replace a generation API key.
 
-![Copy an application API key or open Manage Keys](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/get-api-key-en.png)
+![Copy an application API key or open Manage Keys](https://raw.githubusercontent.com/AceDataCloud/SunoDify/8d3d03570e73324220f111f7fe343da0792a8071/_assets/tutorial/get-api-key-en.png)
 
-![Create a separately named key with optional restrictions](https://raw.githubusercontent.com/AceDataCloud/NanoBananaDify/2522b2f57210597af2db866445319334a1677a23/_assets/tutorial/create-api-key-en.png)
+![Create a separately named key with optional restrictions](https://raw.githubusercontent.com/AceDataCloud/SunoDify/8d3d03570e73324220f111f7fe343da0792a8071/_assets/tutorial/create-api-key-en.png)
 
 Save the key in the client's credential store or the environment variable shown below. Never put it in a prompt, shared workflow, screenshot, or Git commit. If authentication fails, check the full copied value, application/service access, expiration, usage limit, and balance before creating another key.
 
