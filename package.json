@@ -1,6 +1,6 @@
 {
   "name": "@acedatacloud/n8n-nodes-suno",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Create Suno music and lyrics, then retrieve the same task through Ace Data Cloud.",
   "license": "MIT",
   "homepage": "https://github.com/AceDataCloud/SunoN8N",
