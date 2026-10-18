@@ -1,0 +1,48 @@
+name: Verify npm release
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/verify-npm-release.yml'
+      - 'scripts/verify-npm-release.mjs'
+      - 'scripts/smoke-published.sh'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Existing public npm version to verify
+        required: true
+        default: '0.1.3'
+        type: string
+      source_sha:
+        description: Expected npm gitHead, when verifying a specific release
+        required: false
+        type: string
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      PACKAGE_VERSION: ${{ inputs.version || '0.1.3' }}
+      VERSION_SOURCE_SHA: ${{ inputs.source_sha || '' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          registry-url: https://registry.npmjs.org
+      - name: Verify exact registry bytes and native onboarding
+        run: node scripts/verify-npm-release.mjs
+      - name: Official provenance and package security scan
+        run: |
+          set -o pipefail
+          package_name="$(node -p "require('./package.json').name")"
+          npx --yes @n8n/scan-community-package@0.38.0 "$package_name@$PACKAGE_VERSION" | tee artifacts/security-scan.log
+          grep -F 'has passed all security checks' artifacts/security-scan.log
+      - name: Install exact published bytes in stable n8n 2.43.7
+        run: bash scripts/smoke-published.sh
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: npm-release-verification
+          path: artifacts/
