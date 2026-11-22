@@ -54,7 +54,6 @@ for (const text of [
 	'utm_source=opensource',
 	'utm_medium=referral',
 	'utm_campaign=evergreen',
-	'utm_content=',
 ])
 	assert.ok(readme.includes(text), `Missing onboarding ${text}`);
 await writeFile(`${directory}/README.md`, readme);

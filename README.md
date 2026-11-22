@@ -1,6 +1,6 @@
 # Suno by Ace Data Cloud — n8n community node
 
-Use [Suno through AceDataCloud](https://platform.acedata.cloud/documents/suno-audios?utm_source=opensource&utm_medium=referral&utm_campaign=evergreen&utm_content=sunon8n_readme_documents_suno_audios) in your n8n workflows.
+Use [Suno through AceDataCloud](https://platform.acedata.cloud/documents/suno-audios?utm_source=opensource&utm_medium=referral&utm_campaign=evergreen) in your n8n workflows.
 
 This package is maintained by **Ace Data Cloud** and connects to **AceDataCloud's API**. It is an AceDataCloud integration, not an official node from Suno, Inc.. You need an AceDataCloud account and a token for the corresponding service; a direct Suno subscription is not an AceDataCloud API credential.
 
@@ -30,14 +30,14 @@ Official n8n tutorial image, referenced on 2026-10-18; its original capture date
 2. Paste an existing task ID returned by this same service. The **Task ID** field is not a prompt or a video/image URL. Leave creation and n8n retry-on-fail off.
 3. Execute that query node once. Continue only when `finished` and `successful` are true; inspect `data` for the final media URL. A pending response or task ID is not the final output. Record 401/403 and check access rather than creating a replacement task.
 
-For new creation, choose **Resource → Audio**, **Operation → Create**, then explicitly select the model and inputs. Check [current pricing](https://platform.acedata.cloud/models?utm_source=opensource&utm_medium=referral&utm_campaign=evergreen&utm_content=sunon8n_readme_pricing) and balance before executing once. Keep the returned ID and query it after a timeout; restarting creation can incur another charge. Each incoming item can create a separate task. No model fallback is added by this integration.
+For new creation, choose **Resource → Audio**, **Operation → Create**, then explicitly select the model and inputs. Check [current pricing](https://platform.acedata.cloud/models?utm_source=opensource&utm_medium=referral&utm_campaign=evergreen) and balance before executing once. Keep the returned ID and query it after a timeout; restarting creation can incur another charge. Each incoming item can create a separate task. No model fallback is added by this integration.
 
 The API-key screenshots below are real platform references; this README does not claim that they show an n8n installation or output. Native n8n installation/configuration screenshots must identify the actual package/version and contain no secret. All customer-facing node text and documentation remain English to match [n8n verification requirements](https://docs.n8n.io/connect/create-nodes/build-your-node/reference/verification-guidelines/).
 
 ## Credentials
 
-1. Open [Ace Data Cloud → Applications](https://platform.acedata.cloud/console/applications?utm_source=opensource&utm_medium=referral&utm_campaign=evergreen&utm_content=sunon8n_readme_api_key). Sign in, or register an account first.
-2. Find **General application**. If it has not been created, choose **Initialize General Application**. A general key can use the services available to your account; a dedicated application's key is limited to its service. Check the required service/model access and [current pricing](https://platform.acedata.cloud/models?utm_source=opensource&utm_medium=referral&utm_campaign=evergreen&utm_content=sunon8n_readme_pricing).
+1. Open [Ace Data Cloud → Applications](https://platform.acedata.cloud/console/applications?utm_source=opensource&utm_medium=referral&utm_campaign=evergreen). Sign in, or register an account first.
+2. Find **General application**. If it has not been created, choose **Initialize General Application**. A general key can use the services available to your account; a dedicated application's key is limited to its service. Check the required service/model access and [current pricing](https://platform.acedata.cloud/models?utm_source=opensource&utm_medium=referral&utm_campaign=evergreen).
 3. Copy the **API Key** from the application card, or open **Keys / Manage Keys → Create** to create a separate key for this integration. Give it a recognizable name so you can revoke or rotate it independently.
 4. When creating a key, review **Expiration Time**, **Set Usage Limitation**, and **Allowed APIs**. Enable only the restrictions you need, allow the operations you will call, then click **Create** and copy the token from the key list. Task lookup does not grant permission to submit a generation. Confirm the application's balance can cover your first request; any trial allowance is whatever your account currently displays.
 5. Copy only the token value, without quotation marks, spaces, or `Bearer `. An API Key / API Token field expects this raw value; only a manually configured HTTP `Authorization` header needs the `Bearer ` prefix. A `platform-...` account-management token cannot replace a generation API key.
