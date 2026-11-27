@@ -14,6 +14,8 @@ n8n Cloud requires verified community nodes. Publishing this package to npm does
 
 ## Use the node
 
+In node version 1.1, choose **Options → Add Option → Model** for audio, or **Lyrics Model** for lyrics. Leaving the option empty uses the same default as version 1.
+
 Search for **Suno** after installation. Choose **Suno by Ace Data Cloud**; the integration is maintained by Ace Data Cloud, not the model developer. Related search phrases are `suno`, `suno music`, `music generation`. These are discovery hints, not a claim about search rank or official approval.
 
 - **Self-hosted n8n:** follow [the official community-node installation instructions](https://docs.n8n.io/integrations/community-nodes/installation-and-management/gui-installation/) and install `@acedatacloud/n8n-nodes-suno`. After installation, add a Manual Trigger (or use your existing trigger), then use its next **+** to find the node. This is a processing/query node, not a trigger.

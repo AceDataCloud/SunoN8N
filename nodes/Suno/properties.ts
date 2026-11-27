@@ -1,5 +1,72 @@
 import type { INodeProperties } from 'n8n-workflow';
 
+const audioModel: INodeProperties = {
+	displayName: 'Model',
+	name: 'model',
+	type: 'options',
+	default: 'chirp-v5-5',
+	options: [
+		{
+			name: 'chirp-v3-0',
+			value: 'chirp-v3-0',
+		},
+		{
+			name: 'chirp-v3-5',
+			value: 'chirp-v3-5',
+		},
+		{
+			name: 'chirp-v4',
+			value: 'chirp-v4',
+		},
+		{
+			name: 'chirp-v4-5',
+			value: 'chirp-v4-5',
+		},
+		{
+			name: 'chirp-v4-5-plus',
+			value: 'chirp-v4-5-plus',
+		},
+		{
+			name: 'chirp-v5',
+			value: 'chirp-v5',
+		},
+		{
+			name: 'chirp-v5-5',
+			value: 'chirp-v5-5',
+		},
+		{
+			name: 'chirp-v6',
+			value: 'chirp-v6',
+		},
+		{
+			name: 'chirp-v6-mini',
+			value: 'chirp-v6-mini',
+		},
+		{
+			name: 'chirp-v6-wild',
+			value: 'chirp-v6-wild',
+		},
+	],
+	description: 'The model to use. Availability and pricing depend on the selected model.',
+};
+
+const lyricsModel: INodeProperties = {
+	displayName: 'Lyrics Model',
+	name: 'lyricsModel',
+	type: 'options',
+	default: 'default',
+	options: [
+		{
+			name: 'Default',
+			value: 'default',
+		},
+		{
+			name: 'Remi V1',
+			value: 'remi-v1',
+		},
+	],
+};
+
 export const properties: INodeProperties[] = [
 	{
 		displayName: 'Resource',
@@ -133,58 +200,13 @@ export const properties: INodeProperties[] = [
 		description: 'Describe what to generate. In custom music mode, enter the lyrics.',
 	},
 	{
-		displayName: 'Model',
-		name: 'model',
-		type: 'options',
-		default: 'chirp-v5-5',
-		options: [
-			{
-				name: 'chirp-v3-0',
-				value: 'chirp-v3-0',
-			},
-			{
-				name: 'chirp-v3-5',
-				value: 'chirp-v3-5',
-			},
-			{
-				name: 'chirp-v4',
-				value: 'chirp-v4',
-			},
-			{
-				name: 'chirp-v4-5',
-				value: 'chirp-v4-5',
-			},
-			{
-				name: 'chirp-v4-5-plus',
-				value: 'chirp-v4-5-plus',
-			},
-			{
-				name: 'chirp-v5',
-				value: 'chirp-v5',
-			},
-			{
-				name: 'chirp-v5-5',
-				value: 'chirp-v5-5',
-			},
-			{
-				name: 'chirp-v6',
-				value: 'chirp-v6',
-			},
-			{
-				name: 'chirp-v6-mini',
-				value: 'chirp-v6-mini',
-			},
-			{
-				name: 'chirp-v6-wild',
-				value: 'chirp-v6-wild',
-			},
-		],
+		...audioModel,
 		displayOptions: {
 			show: {
+				'@version': [1],
 				resource: ['audio'],
 			},
 		},
-		description: 'The model to use. Availability and pricing depend on the selected model.',
 	},
 	{
 		displayName: 'Custom Lyrics',
@@ -238,22 +260,10 @@ export const properties: INodeProperties[] = [
 		description: 'Musical genre, mood, and instruments',
 	},
 	{
-		displayName: 'Lyrics Model',
-		name: 'lyricsModel',
-		type: 'options',
-		default: 'default',
-		options: [
-			{
-				name: 'Default',
-				value: 'default',
-			},
-			{
-				name: 'Remi V1',
-				value: 'remi-v1',
-			},
-		],
+		...lyricsModel,
 		displayOptions: {
 			show: {
+				'@version': [1],
 				resource: ['lyrics'],
 			},
 		},
@@ -270,6 +280,7 @@ export const properties: INodeProperties[] = [
 			},
 		},
 		options: [
+			{ ...audioModel, displayOptions: { show: { '@version': [1.1] } } },
 			{
 				displayName: 'Negative Tags',
 				name: 'negativeTags',
@@ -298,6 +309,15 @@ export const properties: INodeProperties[] = [
 				],
 			},
 		],
+	},
+	{
+		displayName: 'Options',
+		name: 'options',
+		type: 'collection',
+		default: {},
+		placeholder: 'Add Option',
+		displayOptions: { show: { resource: ['lyrics'], '@version': [1.1] } },
+		options: [lyricsModel],
 	},
 	{
 		displayName: 'Simplify',
