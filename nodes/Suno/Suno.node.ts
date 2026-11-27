@@ -23,7 +23,7 @@ export class Suno implements INodeType {
 		name: 'suno',
 		icon: { light: 'file:icon.png', dark: 'file:icon.dark.png' },
 		group: ['transform'],
-		version: 1,
+		version: [1, 1.1],
 		subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
 		description: 'Create Suno music and lyrics, then retrieve the same task through Ace Data Cloud',
 		defaults: { name: 'Suno by Ace Data Cloud' },
@@ -101,10 +101,13 @@ export class Suno implements INodeType {
 						throw new NodeOperationError(this.getNode(), 'Select a supported operation');
 					const prompt = requiredText(this.getNodeParameter('prompt', index), 'Prompt');
 					const options = object(this.getNodeParameter('options', index, {}));
+					const usesOptions = this.getNode().typeVersion >= 1.1;
 					if (resource === 'lyrics') {
 						const response = await request(this, 'aceDataSunoApi', '/suno/lyrics', {
 							prompt,
-							model: this.getNodeParameter('lyricsModel', index) as string,
+							model: usesOptions
+								? (options.lyricsModel ?? 'default')
+								: (this.getNodeParameter('lyricsModel', index) as string),
 						});
 						result.push(
 							...output(
@@ -121,7 +124,9 @@ export class Suno implements INodeType {
 						const custom = this.getNodeParameter('custom', index, false) as boolean;
 						const body: IDataObject = {
 							action: 'generate',
-							model: this.getNodeParameter('model', index) as string,
+							model: usesOptions
+								? (options.model ?? 'chirp-v5-5')
+								: (this.getNodeParameter('model', index) as string),
 							async: true,
 							custom,
 							instrumental: this.getNodeParameter('instrumental', index, false) as boolean,

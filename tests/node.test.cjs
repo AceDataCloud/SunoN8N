@@ -4,7 +4,11 @@ const { Suno } = require('../dist/nodes/Suno/Suno.node.js');
 const { taskResult } = require('../dist/nodes/Suno/helpers.js');
 const { AceDataSunoApi } = require('../dist/credentials/AceDataSunoApi.credentials.js');
 
-function context(parameters, responses, { count = 1, continueOnFail = false } = {}) {
+function context(
+	parameters,
+	responses,
+	{ count = 1, continueOnFail = false, typeVersion = 1 } = {},
+) {
 	const calls = [];
 	let next = 0;
 	return {
@@ -13,7 +17,7 @@ function context(parameters, responses, { count = 1, continueOnFail = false } = 
 		getNode: () => ({
 			name: 'Test Suno',
 			type: '@acedatacloud/n8n-nodes-suno.suno',
-			typeVersion: 1,
+			typeVersion,
 			position: [0, 0],
 			parameters: {},
 		}),
@@ -227,4 +231,43 @@ test('the example polling loop cannot reach Create again', () => {
 	assert.equal(visited.has('Generation Failed'), true);
 	assert.equal(workflow.nodes.find((node) => node.name === 'Create').retryOnFail, false);
 	assert.equal(JSON.stringify(workflow).includes('apiToken'), false);
+});
+
+test('v1.1 keeps both v1 model selections and defaults inside resource-specific options', async () => {
+	const { NodeHelpers } = require('n8n-workflow');
+	const description = new Suno().description;
+	for (const [resource, field, selected, defaultModel] of [
+		['audio', 'model', 'chirp-v6', 'chirp-v5-5'],
+		['lyrics', 'lyricsModel', 'remi-v1', 'default'],
+	]) {
+		const input = { resource, operation: 'create', prompt: 'A new song' };
+		for (const typeVersion of [1, 1.1]) {
+			const visible = description.properties.filter((prop) =>
+				NodeHelpers.displayParameter(input, prop, { typeVersion }, description),
+			);
+			assert.equal(
+				visible.some((prop) => prop.name === field),
+				typeVersion === 1,
+			);
+			const collection = visible.find((prop) => prop.name === 'options');
+			const fields =
+				collection?.options.filter((prop) =>
+					NodeHelpers.displayParameter({}, prop, { typeVersion }, description, input),
+				) ?? [];
+			assert.equal(
+				fields.some((prop) => prop.name === field),
+				typeVersion === 1.1,
+			);
+		}
+		const response = [{ task_id: 'task-1', data: [] }];
+		const old = context({ ...input, [field]: selected }, response);
+		const current = context({ ...input, options: { [field]: selected } }, response, {
+			typeVersion: 1.1,
+		});
+		const defaults = context(input, response, { typeVersion: 1.1 });
+		for (const ctx of [old, current, defaults]) await new Suno().execute.call(ctx);
+		assert.equal(current.calls[0].body.model, selected);
+		assert.deepEqual(current.calls, old.calls);
+		assert.equal(defaults.calls[0].body.model, defaultModel);
+	}
 });
