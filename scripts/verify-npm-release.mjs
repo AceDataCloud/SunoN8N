@@ -6,6 +6,12 @@ import { execFileSync } from 'node:child_process';
 const source = JSON.parse(await readFile('package.json', 'utf8'));
 const version = process.env.PACKAGE_VERSION || source.version;
 assert.match(version, /^\d+\.\d+\.\d+$/);
+// Pull requests also verify the already published package before the rename.
+const introduced = [0, 1, 4];
+const parts = version.split('.').map(Number);
+const firstDifference = parts.findIndex((part, index) => part !== introduced[index]);
+const hasShortName = firstDifference < 0 || parts[firstDifference] > introduced[firstDifference];
+const expectedDisplayName = hasShortName ? "Suno" : "Suno by Ace Data Cloud";
 const directory = 'artifacts/published';
 await mkdir(directory, { recursive: true });
 async function get(url) {
@@ -43,7 +49,8 @@ const discovery = manifest.n8n.nodes.map((path) => {
 	assert.ok(codex.alias?.length, 'Published service search aliases are missing');
 	assert.ok(codex.resources.primaryDocumentation.length);
 	assert.ok(codex.resources.credentialDocumentation.length);
-	assert.ok(read(path).includes('by Ace Data Cloud'));
+	const displayName = read(path).toString().match(/\bdisplayName:\s*['"]([^'"]+)['"]/)?.[1];
+	assert.equal(displayName, expectedDisplayName);
 	return { node: codex.node, aliases: codex.alias, resources: codex.resources };
 });
 const readme = read('README.md');

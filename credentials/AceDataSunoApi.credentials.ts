@@ -7,7 +7,7 @@ import type {
 
 export class AceDataSunoApi implements ICredentialType {
 	name = 'aceDataSunoApi';
-	displayName = 'Suno by Ace Data Cloud API';
+	displayName = 'Suno API';
 	documentationUrl = 'https://github.com/AceDataCloud/SunoN8N#credentials';
 	icon = 'file:../nodes/Suno/icon.png' as const;
 	properties: INodeProperties[] = [

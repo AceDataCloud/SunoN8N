@@ -1,4 +1,4 @@
-# Suno by Ace Data Cloud — n8n community node
+# Suno — n8n community node
 
 Use [Suno through AceDataCloud](https://platform.acedata.cloud/documents/suno-audios?utm_source=opensource&utm_medium=referral&utm_campaign=evergreen) in your n8n workflows.
 
@@ -16,11 +16,11 @@ n8n Cloud requires verified community nodes. Publishing this package to npm does
 
 In node version 1.1, choose **Options → Add Option → Model** for audio, or **Lyrics Model** for lyrics. Leaving the option empty uses the same default as version 1.
 
-Search for **Suno** after installation. Choose **Suno by Ace Data Cloud**; the integration is maintained by Ace Data Cloud, not the model developer. Related search phrases are `suno`, `suno music`, `music generation`. These are discovery hints, not a claim about search rank or official approval.
+Search for **Suno** after installation. Choose **Suno**; the integration is maintained by Ace Data Cloud, not the model developer. Related search phrases are `suno`, `suno music`, `music generation`. These are discovery hints, not a claim about search rank or official approval.
 
 - **Self-hosted n8n:** follow [the official community-node installation instructions](https://docs.n8n.io/integrations/community-nodes/installation-and-management/gui-installation/) and install `@acedatacloud/n8n-nodes-suno`. After installation, add a Manual Trigger (or use your existing trigger), then use its next **+** to find the node. This is a processing/query node, not a trigger.
 - **n8n Cloud:** use [the verified-node picker](https://docs.n8n.io/integrations/community-nodes/installation-and-management/install-verified-community-nodes/) only when this package is officially available there. Do not paste an unverified package name into Cloud or treat npm publication as verification.
-- Create **Suno by Ace Data Cloud API** in n8n credentials, then paste your raw application API token into **API Token**. See [Credentials](#credentials) for account registration, General application initialization and optional expiry/access/usage limits.
+- Create **Suno API** in n8n credentials, then paste your raw application API token into **API Token**. See [Credentials](#credentials) for account registration, General application initialization and optional expiry/access/usage limits.
 
 ![Official n8n reference: add an action after a trigger](https://raw.githubusercontent.com/n8n-io/n8n-docs/4a84a4229f694c8565dcd0a9cd0af37623fa2cbc/docs/get-started/.gitbook/assets/build-your-first-workflow-get-weather-01.png)
 
@@ -50,7 +50,7 @@ The API-key screenshots below are real platform references; this README does not
 
 Save the key in the client's credential store or the environment variable shown below. Never put it in a prompt, shared workflow, screenshot, or Git commit. If authentication fails, check the full copied value, application/service access, expiration, usage limit, and balance before creating another key.
 
-In n8n, open a node and create a **Suno by Ace Data Cloud API** credential. Paste the raw value into **API Token**, save, and select this credential on every node that needs it, including task readers.
+In n8n, open a node and create a **Suno API** credential. Paste the raw value into **API Token**, save, and select this credential on every node that needs it, including task readers.
 
 The token is stored in n8n's credential store and sent as a Bearer token only to `https://api.acedata.cloud`. The credential test queries an empty batch of tasks; it does not create media. Use a service API token, not a platform management token. Different services may require different credentials.
 
