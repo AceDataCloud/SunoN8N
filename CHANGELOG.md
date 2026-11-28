@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.4 — 2026-11-28
+
+- Show Suno as the node name and use the matching service name in credentials.
+
 ## 0.1.3 — 2026-10-19
 
 - Add service-name search aliases, in-node help and API-key setup notice.

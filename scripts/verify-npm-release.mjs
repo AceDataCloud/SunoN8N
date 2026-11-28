@@ -43,7 +43,8 @@ const discovery = manifest.n8n.nodes.map((path) => {
 	assert.ok(codex.alias?.length, 'Published service search aliases are missing');
 	assert.ok(codex.resources.primaryDocumentation.length);
 	assert.ok(codex.resources.credentialDocumentation.length);
-	assert.ok(read(path).includes('by Ace Data Cloud'));
+	const displayName = read(path).toString().match(/\bdisplayName:\s*['"]([^'"]+)['"]/)?.[1];
+	assert.equal(displayName, "Suno");
 	return { node: codex.node, aliases: codex.alias, resources: codex.resources };
 });
 const readme = read('README.md');
